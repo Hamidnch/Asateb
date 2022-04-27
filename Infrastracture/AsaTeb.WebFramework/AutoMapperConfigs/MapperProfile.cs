@@ -16,18 +16,12 @@ namespace AsaTeb.WebFramework.AutoMapperConfigs
                 .ForMember(t => t.Guid,
                     d => 
                         d.MapFrom(x => x.Id))
-                .ForMember(t=> t.Name,
-                    dest=>
-                        dest.MapFrom(map=> map.Name))
                 .ReverseMap();
 
             CreateMap<TechnologyDto, TechnologyModel>()
                 .ForMember(t => t.Id,
                     d => 
                         d.MapFrom(x => x.Guid))
-                .ForMember(t => t.Name,
-                    dest =>
-                        dest.MapFrom(map => map.Name))
                 .ReverseMap();
 
             CreateMap<Candidate, CandidateDto>()

@@ -28,33 +28,32 @@ namespace AsaTeb.Application.Candidates.Queries
                 
                 if (candidates == null) return new List<CandidateDto>();
 
-  
-                var candidatesDto = 
-                    candidates.Select(c => _mapper.Map<Candidate, CandidateDto>(c))
-                        //new CandidateDto()
-                        //{
-                        //   Experience = c.Experiences.Select(async e=> new ExperienceDto()
-                        //   {
-                        //       TechnologyName = (await _technologyRepository.GetTechnologyByIdAsync(e.TechnologyId))?.Name,
-                        //       TechnologyId = e.TechnologyId,
-                        //       YearsOfExperience = e.YearsOfExperience
-                        //   }),
-                        //   FirstName = c.FirstName,
-                        //   LastName = c.LastName,
-                        //   Gender = c.GenderType,
-                        //   ProfilePicture = c.ProfilePicture,
-                        //   Email = c.Email,
-                        //   FavoriteMusicGenre = c.FavoriteMusicGenre,
-                        //   Dad = c.Dad,
-                        //   Mom = c.Mom,
-                        //   CanSwim = c.CanSwim,
-                        //   Barcode = c.Barcode,
-                        //   CandidateId = c.Id
-
-                        //})
+                var candidatesDto =
+                    candidates.Select(c => //_mapper.Map<Candidate, CandidateDto>(c))
+                            new CandidateDto()
+                            {
+                                FirstName = c.FirstName,
+                                LastName = c.LastName,
+                                Gender = c.GenderType,
+                                ProfilePicture = c.ProfilePicture,
+                                Email = c.Email,
+                                FavoriteMusicGenre = c.FavoriteMusicGenre,
+                                Dad = c.Dad,
+                                Mom = c.Mom,
+                                CanSwim = c.CanSwim,
+                                Barcode = c.Barcode,
+                                CandidateId = c.Id,
+                                Experience = c.Experiences.Select(e => new ExperienceDto()
+                                {
+                                    TechnologyName =
+                                        (_technologyRepository.GetTechnologyByIdAsync(e.TechnologyId)).Result?.Name,
+                                    TechnologyId = e.TechnologyId,
+                                    YearsOfExperience = e.YearsOfExperience
+                                }).ToList()
+                            })
                         .ToList();
-                return candidatesDto;
 
+                return candidatesDto;
             }
         }
     }

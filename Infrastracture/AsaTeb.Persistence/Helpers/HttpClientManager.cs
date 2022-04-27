@@ -21,9 +21,8 @@ namespace AsaTeb.Persistence.Helpers
 
             var response = await res.Content.ReadAsStringAsync();
             var entities = JsonConvert.DeserializeObject<IEnumerable<T>>(response);
-
+            
             return entities;
-
         }
 
         //public static async Task<IEnumerable<TechnologyDto>?> ResolveUrl(string url)
