@@ -1,4 +1,4 @@
-﻿namespace AsaTeb.Application.Candidates
+﻿namespace AsaTeb.Application.Candidates.Dtos
 {
     public class ExperienceDto
     {
