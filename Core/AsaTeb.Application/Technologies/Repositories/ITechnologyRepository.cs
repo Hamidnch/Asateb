@@ -1,5 +1,4 @@
-﻿using AsaTeb.Application.Technologies.Dtos;
-using AsaTeb.Domain.Technologies;
+﻿using AsaTeb.Domain.Technologies;
 
 namespace AsaTeb.Application.Technologies.Repositories;
 
