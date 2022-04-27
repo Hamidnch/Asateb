@@ -1,0 +1,21 @@
+﻿@model IEnumerable<AsaTeb.WebFramework.Models.CandidateModel>
+
+<h1>All Candidates</h1>
+@{
+    foreach (var technology in Model)
+    {
+        <img src="@technology.ProfilePicture"/>
+        <ul>
+            <li>@technology.CandidateId</li>
+            <li>@technology.FirstName</li>
+            <li>@technology.LastName</li>
+            <li>@technology.Barcode</li>
+            <li>@technology.CanSwim</li>
+            <li>@technology.Dad</li>
+            <li>@technology.Mom</li>
+            <li>@technology.Email</li>
+            <li>@technology.FavoriteMusicGenre</li>
+            <li>@technology.Gender</li>
+        </ul>
+    }
+}

@@ -1,12 +1,5 @@
-﻿@model IList<AsaTeb.Application.Technologies.Dtos.TechnologyDto>
-
-<h1>All Technologies</h1>
-@{
-    foreach (var technology in Model)
-    {
-        <ul>
-            <li>@technology.Id</li>
-            <li>@technology.Name</li>
-        </ul>
-    }
-}
+﻿
+<ul>
+    <li><a href="/Home/GetallTechnologies">All technologies</a></li>
+    <li><a href="/Home/GetallCandidates">All candidates</a></li>
+</ul>

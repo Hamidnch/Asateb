@@ -1,0 +1,12 @@
+﻿@model IEnumerable<AsaTeb.WebFramework.Models.TechnologyModel>
+
+<h1>All Technologies</h1>
+@{
+    foreach (var technology in Model)
+    {
+        <ul>
+            <li>@technology.Id</li>
+            <li>@technology.Name</li>
+        </ul>
+    }
+}
