@@ -2,7 +2,7 @@
 {
     public class TechnologyDto
     {
-        public Guid Id { get; set; }
+        public Guid Guid { get; set; }
         public string? Name { get; set; }
     }
 }
