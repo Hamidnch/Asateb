@@ -5,7 +5,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using AsaTeb.Application.Candidates.Repositories;
 using AsaTeb.Application.FacadePattern;
+using AsaTeb.Persistence.Candidates;
 
 namespace AsaTeb.WebFramework
 {
@@ -17,6 +19,7 @@ namespace AsaTeb.WebFramework
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(typeof(GetAllTechnologiesQuery).GetTypeInfo().Assembly);
             services.AddScoped<ITechnologyRepository, TechnologyRepository>();
+            services.AddScoped<ICandidateRepository, CandidateRepository>();
             services.AddScoped<IAsaTebService, AsaTebService>();
 
             return services;
