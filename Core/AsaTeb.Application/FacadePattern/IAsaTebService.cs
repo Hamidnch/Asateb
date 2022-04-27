@@ -5,7 +5,8 @@ namespace AsaTeb.Application.FacadePattern
 {
     public interface IAsaTebService
     {
-        Task<IEnumerable<TechnologyDto>> GetAllTechnologies();
-        Task<IEnumerable<CandidateDto>> GetAllCandidates();
+        Task<IEnumerable<TechnologyDto>> GetAllTechnologiesAsync();
+        Task<TechnologyDto> GetTechnologyByIdAsync(Guid id);
+        Task<IEnumerable<CandidateDto>> GetAllCandidatesAsync();
     }
 }

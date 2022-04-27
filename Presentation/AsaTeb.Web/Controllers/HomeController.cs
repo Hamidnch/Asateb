@@ -24,7 +24,7 @@ namespace AsaTeb.Web.Controllers
         }
         public async Task<IActionResult> GetAllTechnologies()
         {
-            var technologies = await _asaTebService.GetAllTechnologies();
+            var technologies = await _asaTebService.GetAllTechnologiesAsync();
             var model =
                 technologies.Select(t => _mapper.Map<TechnologyDto, TechnologyModel>(t));
             return View(model);
@@ -32,8 +32,9 @@ namespace AsaTeb.Web.Controllers
 
         public async Task<IActionResult> GetAllCandidates()
         {
-            var candidates = await _asaTebService.GetAllCandidates();
-            var model = candidates.Select(c => _mapper.Map<CandidateDto, CandidateModel>(c));
+            var candidates = await _asaTebService.GetAllCandidatesAsync();
+            var model = 
+                candidates.Select(c => _mapper.Map<CandidateDto, CandidateModel>(c));
             return View(model);
         }
     }

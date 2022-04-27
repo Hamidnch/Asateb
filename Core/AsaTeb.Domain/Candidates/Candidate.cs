@@ -17,6 +17,10 @@ namespace AsaTeb.Domain.Candidates
 
         public ICollection<Experience> Experiences { get; private set; }
 
+        public Candidate()
+        {
+            
+        }
         public Candidate(string? firstName, string? lastName, GenderType genderType,
             string? profilePicture, string? email, string? favoriteMusicGenre,
             string? dad, string? mom, bool canSwim, string? barcode)

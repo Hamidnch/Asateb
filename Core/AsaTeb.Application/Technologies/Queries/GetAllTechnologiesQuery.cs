@@ -6,9 +6,9 @@ using MediatR;
 
 namespace AsaTeb.Application.Technologies.Queries
 {
-    public record GetAllTechnologiesQuery : IRequest<IList<TechnologyDto>>
+    public record GetAllTechnologiesQuery : IRequest<IEnumerable<TechnologyDto>>
     {
-        public record GetAllTechnologiesQueryHandler : IRequestHandler<GetAllTechnologiesQuery, IList<TechnologyDto>>
+        public record GetAllTechnologiesQueryHandler : IRequestHandler<GetAllTechnologiesQuery, IEnumerable<TechnologyDto>>
         {
             private readonly ITechnologyRepository _technologyRepository;
             private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace AsaTeb.Application.Technologies.Queries
                 _mapper = mapper;
             }
 
-            public async Task<IList<TechnologyDto>> Handle(GetAllTechnologiesQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<TechnologyDto>> Handle(GetAllTechnologiesQuery request, CancellationToken cancellationToken)
             {
                 var technologies = await _technologyRepository.LoadAllTechnologiesAsync();
 

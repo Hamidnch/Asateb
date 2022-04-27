@@ -4,6 +4,10 @@
     {
         public string? Name { get; set; }
 
+        public Technology()
+        {
+            
+        }
         public Technology(string? name)
         {
             Name = name;

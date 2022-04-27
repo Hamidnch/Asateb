@@ -4,6 +4,11 @@ namespace AsaTeb.WebFramework.Models
 {
     public class CandidateModel
     {
+        public CandidateModel(IEnumerable<ExperienceModel> experience)
+        {
+            Experience = experience;
+        }
+
         public Guid CandidateId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -16,12 +21,5 @@ namespace AsaTeb.WebFramework.Models
         public bool CanSwim { get; set; }
         public string? Barcode { get; set; }
         public IEnumerable<ExperienceModel> Experience { get; set; }
-    }
-
-    public class ExperienceModel
-    {
-        public Guid TechnologyId { get; set; }
-        public string? TechnologyName { get; set; }
-        public int YearsOfExperience { get; set; }
     }
 }

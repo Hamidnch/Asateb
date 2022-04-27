@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using AsaTeb.Application.Technologies.Dtos;
-using AsaTeb.Domain.Technologies;
-using Newtonsoft.Json;
 
 namespace AsaTeb.Persistence.Helpers
 {

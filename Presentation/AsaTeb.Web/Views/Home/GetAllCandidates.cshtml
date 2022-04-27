@@ -2,20 +2,32 @@
 
 <h1>All Candidates</h1>
 @{
-    foreach (var technology in Model)
+    foreach (var candidate in Model)
     {
-        <img src="@technology.ProfilePicture"/>
+        <img src="@candidate.ProfilePicture"/>
         <ul>
-            <li>@technology.CandidateId</li>
-            <li>@technology.FirstName</li>
-            <li>@technology.LastName</li>
-            <li>@technology.Barcode</li>
-            <li>@technology.CanSwim</li>
-            <li>@technology.Dad</li>
-            <li>@technology.Mom</li>
-            <li>@technology.Email</li>
-            <li>@technology.FavoriteMusicGenre</li>
-            <li>@technology.Gender</li>
+            <li>@candidate.CandidateId</li>
+            <li>@candidate.FirstName</li>
+            <li>@candidate.LastName</li>
+            <li>@candidate.Barcode</li>
+            <li>@candidate.CanSwim</li>
+            <li>@candidate.Dad</li>
+            <li>@candidate.Mom</li>
+            <li>@candidate.Email</li>
+            <li>@candidate.FavoriteMusicGenre</li>
+            <li>@candidate.Gender</li>
         </ul>
+        <h5>Experiences of @candidate.FirstName</h5>
+
+        foreach (var experience in candidate.Experience)
+        {
+            <ul>
+                <li>Technology Id: @experience.TechnologyId</li>
+                <li>Technology name: @experience.TechnologyName</li>
+                <li>Years of experience: @experience.YearsOfExperience</li>
+            </ul>
+        }
+
+        
     }
 }

@@ -15,12 +15,17 @@ public class AsaTebService : IAsaTebService
         _mediator = mediator;
     }
 
-    public async Task<IEnumerable<TechnologyDto>> GetAllTechnologies()
+    public async Task<IEnumerable<TechnologyDto>> GetAllTechnologiesAsync()
     {
         return await _mediator.Send(new GetAllTechnologiesQuery());
     }
 
-    public async Task<IEnumerable<CandidateDto>> GetAllCandidates()
+    public async Task<TechnologyDto> GetTechnologyByIdAsync(Guid id)
+    {
+        return await _mediator.Send(new GetTechnologyByIdQuery(Id: id));
+    }
+
+    public async Task<IEnumerable<CandidateDto>> GetAllCandidatesAsync()
     {
         return await _mediator.Send(new GetAllCandidatesQuery());
     }

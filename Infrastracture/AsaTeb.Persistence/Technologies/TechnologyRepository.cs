@@ -10,14 +10,18 @@ namespace AsaTeb.Persistence.Technologies
 
         public async Task<IEnumerable<Technology>?> LoadAllTechnologiesAsync()
         {
-            var technologies = await HttpClientManager.ResolveUrlAsync<TechnologyDto>("api/technologies");
+            var technologies = 
+                await HttpClientManager.ResolveUrlAsync<TechnologyDto>("api/technologies");
             var res = technologies?.Select(t => new Technology(t.Guid,t.Name));
             return res;
         }
 
-        public async Task<Technology> GetTechnologyByIdAsync<T>(Guid id)
+        public async Task<Technology?> GetTechnologyByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var technologies = await LoadAllTechnologiesAsync();
+            var res = technologies?.FirstOrDefault(t => t.Id == id);
+            return res;
+
         }
     }
 }
