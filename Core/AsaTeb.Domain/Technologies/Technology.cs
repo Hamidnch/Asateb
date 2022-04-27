@@ -2,7 +2,7 @@
 {
     public class Technology : BaseEntity
     {
-        private string? Name { get; set; }
+        public string? Name { get; set; }
 
         public Technology(string? name)
         {
