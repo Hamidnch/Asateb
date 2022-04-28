@@ -1,8 +1,8 @@
-﻿using AsaTeb.Application.Candidates;
-using AsaTeb.Application.Candidates.Dtos;
+﻿using AsaTeb.Application.Candidates.Dtos;
 using AsaTeb.Application.Technologies.Dtos;
 using AsaTeb.Domain.Candidates;
 using AsaTeb.Domain.Technologies;
+using AsaTeb.Persistence.Candidates;
 using AsaTeb.WebFramework.Models;
 using AutoMapper;
 
@@ -14,19 +14,22 @@ namespace AsaTeb.WebFramework.AutoMapperConfigs
         {
             CreateMap<Technology, TechnologyDto>()
                 .ForMember(t => t.Guid,
-                    d => 
+                    d =>
                         d.MapFrom(x => x.Id))
                 .ReverseMap();
 
             CreateMap<TechnologyDto, TechnologyModel>()
                 .ForMember(t => t.Id,
-                    d => 
+                    d =>
                         d.MapFrom(x => x.Guid))
                 .ReverseMap();
 
+            CreateMap<CandidateRest, CandidateDto>().ReverseMap();
+            CreateMap<ExperienceRest, ExperienceDto>().ReverseMap();
+
             CreateMap<Candidate, CandidateDto>()
-                .ForMember(c => c.CandidateId, 
-                    dest => 
+                .ForMember(c => c.CandidateId,
+                    dest =>
                         dest.MapFrom(map => map.Id))
                 .ForMember(c => c.Experience,
                     dest =>
@@ -38,7 +41,7 @@ namespace AsaTeb.WebFramework.AutoMapperConfigs
 
             CreateMap<Experience, ExperienceDto>()
                 .ForMember(c => c.TechnologyName,
-                    dest=>dest.Ignore())
+                    dest => dest.Ignore())
 
                 //.ForPath(e => e.TechnologyName,
                 //    dest =>

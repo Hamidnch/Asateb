@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AsaTeb.Application.Candidates.Dtos;
+﻿using AsaTeb.Application.Candidates.Dtos;
 using AsaTeb.Application.Candidates.Repositories;
-using AsaTeb.Application.Technologies.Dtos;
-using AsaTeb.Domain.Candidates;
-using AsaTeb.Domain.Technologies;
 using AsaTeb.Persistence.Helpers;
+using AsaTeb.Persistence.Technologies;
 using AutoMapper;
 
 namespace AsaTeb.Persistence.Candidates
 {
-    public class CandidateRepository: ICandidateRepository
+    public class CandidateRepository : ICandidateRepository
     {
         private readonly IMapper _mapper;
 
@@ -22,19 +15,42 @@ namespace AsaTeb.Persistence.Candidates
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Candidate>?> LoadAllCandidatesAsync()
+        public async Task<IEnumerable<CandidateDto>?> LoadAllCandidatesAsync()
         {
-            var candidates = await HttpClientManager.GetUrlAsync<IEnumerable<CandidateDto>>("api/candidates");
-            var res = candidates?.Select(t => _mapper.Map<CandidateDto, Candidate>(t)).ToList();
+            var technologies = await HttpClientManager.GetUrlAsync<IEnumerable<TechnologyRest>>("api/technologies");
+            var candidates = await HttpClientManager.GetUrlAsync<IEnumerable<CandidateRest>>("api/candidates");
+
+
+            var candidatesRest = candidates?.ToList();
+
+            var technologiesRest = technologies?.ToList();
+
+            if (candidatesRest == null)
+                return candidatesRest?.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
+
+            foreach (var c in candidatesRest)
+            {
+                foreach (var e in c.Experience)
+                {
+                    if (technologiesRest == null) continue;
+
+                    foreach (var t in technologiesRest.Where(t => e.TechnologyId == t.Guid))
+                    {
+                        e.TechnologyName = t.Name;
+                    }
+                }
+            }
+
+            var res = candidatesRest?.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
             return res;
         }
 
-        public async Task<IEnumerable<Candidate>> GetCandidatesByTechnologyIdAsync(Guid technologyId)
+        public async Task<IEnumerable<CandidateDto>> GetCandidatesByTechnologyIdAsync(Guid technologyId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Experience>> GetExperiencesByCandidateIdAsync(Guid candidateId)
+        public async Task<IEnumerable<ExperienceDto>> GetExperiencesByCandidateIdAsync(Guid candidateId)
         {
             throw new NotImplementedException();
         }

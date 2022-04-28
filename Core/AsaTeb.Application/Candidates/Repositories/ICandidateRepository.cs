@@ -1,10 +1,11 @@
-﻿using AsaTeb.Domain.Candidates;
+﻿using AsaTeb.Application.Candidates.Dtos;
+using AsaTeb.Domain.Candidates;
 
 namespace AsaTeb.Application.Candidates.Repositories;
 
 public interface ICandidateRepository
 {
-    Task<IEnumerable<Candidate>?> LoadAllCandidatesAsync();
-    Task<IEnumerable<Candidate>> GetCandidatesByTechnologyIdAsync(Guid technologyId);
-    Task<IEnumerable<Experience>> GetExperiencesByCandidateIdAsync(Guid candidateId);
+    Task<IEnumerable<CandidateDto>?> LoadAllCandidatesAsync();
+    Task<IEnumerable<CandidateDto>> GetCandidatesByTechnologyIdAsync(Guid technologyId);
+    Task<IEnumerable<ExperienceDto>> GetExperiencesByCandidateIdAsync(Guid candidateId);
 }

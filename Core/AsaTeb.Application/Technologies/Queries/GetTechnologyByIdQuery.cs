@@ -22,9 +22,10 @@ namespace AsaTeb.Application.Technologies.Queries
             {
                 var res = await _technologyRepository.GetTechnologyByIdAsync(request.Id);
                 if (res == null) return new TechnologyDto();
-                var technologyDto = _mapper.Map<Technology, TechnologyDto>(res);
-                return technologyDto;
+                //var technologyDto = _mapper.Map<Technology, TechnologyDto>(res);
+                //return technologyDto;
 
+                return res;
             }
         }
     }

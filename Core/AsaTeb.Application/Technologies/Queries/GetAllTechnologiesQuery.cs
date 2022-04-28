@@ -25,11 +25,12 @@ namespace AsaTeb.Application.Technologies.Queries
 
                 if (technologies == null) return new List<TechnologyDto>();
 
-                var technologiesDto =
-                    technologies.Select(t => _mapper.Map<Technology, TechnologyDto>(t)).ToList();
+                //var technologiesDto =
+                //    technologies.Select(t => _mapper.Map<Technology, TechnologyDto>(t)).ToList();
 
-                return technologiesDto;
+                //return technologiesDto;
 
+                return technologies;
             }
         }
     }

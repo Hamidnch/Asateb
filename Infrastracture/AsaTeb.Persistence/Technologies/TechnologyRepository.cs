@@ -1,6 +1,5 @@
 ﻿using AsaTeb.Application.Technologies.Dtos;
 using AsaTeb.Application.Technologies.Repositories;
-using AsaTeb.Domain.Technologies;
 using AsaTeb.Persistence.Helpers;
 
 namespace AsaTeb.Persistence.Technologies
@@ -8,18 +7,19 @@ namespace AsaTeb.Persistence.Technologies
     public class TechnologyRepository : ITechnologyRepository
     {
 
-        public async Task<IEnumerable<Technology>?> LoadAllTechnologiesAsync()
+        public async Task<IEnumerable<TechnologyDto>?> LoadAllTechnologiesAsync()
         {
-            var technologies = 
-                await HttpClientManager.GetUrlAsync<IEnumerable<TechnologyDto>>("api/technologies");
-            var res = technologies?.Select(t => new Technology(t.Guid,t.Name));
+            var technologies =
+                await HttpClientManager.GetUrlAsync<IEnumerable<TechnologyRest>>("api/technologies");
+
+            var res = technologies?.Select(t => new TechnologyDto { Guid = t.Guid, Name = t.Name });
             return res;
         }
 
-        public async Task<Technology?> GetTechnologyByIdAsync(Guid id)
+        public async Task<TechnologyDto?> GetTechnologyByIdAsync(Guid id)
         {
             var technologies = await LoadAllTechnologiesAsync();
-            var res = technologies?.FirstOrDefault(t => t.Id == id);
+            var res = technologies?.FirstOrDefault(t => t.Guid == id);
             return res;
 
             //var technology =

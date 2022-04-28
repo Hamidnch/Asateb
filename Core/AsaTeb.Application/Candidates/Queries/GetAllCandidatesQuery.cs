@@ -1,7 +1,6 @@
 ﻿using AsaTeb.Application.Candidates.Dtos;
 using AsaTeb.Application.Candidates.Repositories;
 using AsaTeb.Application.Technologies.Repositories;
-using AsaTeb.Domain.Candidates;
 using AutoMapper;
 using MediatR;
 
@@ -15,7 +14,8 @@ namespace AsaTeb.Application.Candidates.Queries
             private readonly ITechnologyRepository _technologyRepository;
             private readonly IMapper _mapper;
 
-            public GetAllCandidatesQueryHandler(ICandidateRepository candidateRepository, IMapper mapper, ITechnologyRepository technologyRepository)
+            public GetAllCandidatesQueryHandler(ICandidateRepository candidateRepository, 
+                IMapper mapper, ITechnologyRepository technologyRepository)
             {
                 _candidateRepository = candidateRepository;
                 _mapper = mapper;
@@ -25,35 +25,36 @@ namespace AsaTeb.Application.Candidates.Queries
             public async Task<IEnumerable<CandidateDto>> Handle(GetAllCandidatesQuery request, CancellationToken cancellationToken)
             {
                 var candidates = await _candidateRepository.LoadAllCandidatesAsync();
-                
-                if (candidates == null) return new List<CandidateDto>();
 
-                var candidatesDto =
-                    candidates.Select(c => //_mapper.Map<Candidate, CandidateDto>(c))
-                            new CandidateDto()
-                            {
-                                FirstName = c.FirstName,
-                                LastName = c.LastName,
-                                Gender = c.GenderType,
-                                ProfilePicture = c.ProfilePicture,
-                                Email = c.Email,
-                                FavoriteMusicGenre = c.FavoriteMusicGenre,
-                                Dad = c.Dad,
-                                Mom = c.Mom,
-                                CanSwim = c.CanSwim,
-                                Barcode = c.Barcode,
-                                CandidateId = c.Id,
-                                Experience = c.Experiences.Select(e => new ExperienceDto()
-                                {
-                                    TechnologyName =
-                                        (_technologyRepository.GetTechnologyByIdAsync(e.TechnologyId)).Result?.Name,
-                                    TechnologyId = e.TechnologyId,
-                                    YearsOfExperience = e.YearsOfExperience
-                                })
-                            })
-                        .ToList();
+                return candidates ?? new List<CandidateDto>();
 
-                return candidatesDto;
+                //var candidatesDto =
+                //    candidates.Select( c => _mapper.Map<Candidate, CandidateDto>(c))
+                //    //candidates.Select(c => 
+                //    //        new CandidateDto()
+                //    //        {
+                //    //            FirstName = c.FirstName,
+                //    //            LastName = c.LastName,
+                //    //            Gender = c.GenderType,
+                //    //            ProfilePicture = c.ProfilePicture,
+                //    //            Email = c.Email,
+                //    //            FavoriteMusicGenre = c.FavoriteMusicGenre,
+                //    //            Dad = c.Dad,
+                //    //            Mom = c.Mom,
+                //    //            CanSwim = c.CanSwim,
+                //    //            Barcode = c.Barcode,
+                //    //            CandidateId = c.Id,
+                //    //            Experience = c.Experiences.Select(e => new ExperienceDto()
+                //    //            {
+                //    //                TechnologyName =
+                //    //                    (_technologyRepository.GetTechnologyByIdAsync(e.TechnologyId)).Result?.Name,
+                //    //                TechnologyId = e.TechnologyId,
+                //    //                YearsOfExperience = e.YearsOfExperience
+                //    //            })
+                //    //        })
+                //        .ToList();
+
+                //return candidatesDto;
             }
         }
     }
