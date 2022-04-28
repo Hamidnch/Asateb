@@ -29,4 +29,9 @@ public class AsaTebService : IAsaTebService
     {
         return await _mediator.Send(new GetAllCandidatesQuery());
     }
+
+    public async Task<IEnumerable<CandidateDto>> FilterCandidatesAsync(CandidateByDto candidateByDto)
+    {
+        return await _mediator.Send(new FilterCandidatesQuery(CandidateByDto: candidateByDto));
+    }
 }

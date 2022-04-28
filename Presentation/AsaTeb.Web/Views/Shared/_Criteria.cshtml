@@ -1,0 +1,33 @@
+﻿@model AsaTeb.WebFramework.Models.CriteriaModel
+
+<div class="card text-dark">
+    <div class="card-header">Filter by technologies and Years of experience.</div>
+    <div class="card-body">
+        @Html.AntiForgeryToken()
+        <form class="row" asp-controller="Home" asp-action="Filter" method="post">
+            <div class="col-md-3">
+                <label for="TechnologyId">Technology</label>
+                
+                <select id="TechnologyId" name="TechnologyId" class="form-select"
+                        asp-items="@Model.Technologies">
+                    <option value="-1">Select ...</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="Operator">Condition</label>
+                <select id="Operator" name="Operator" class="form-select" asp-items="@Model.Operators">
+                    <option value="-1">Select ...</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="Year">Years of experience</label>
+                <select id="Year" name="Year" class="form-select" asp-items="@Model.YearsOfExperiences"></select>
+            </div>
+            <div class="col-md-3">
+                <label></label>
+                <input type="submit" class="form-control btn btn-danger" value="Filter"/>
+            </div>
+        </form>
+    </div>
+</div>

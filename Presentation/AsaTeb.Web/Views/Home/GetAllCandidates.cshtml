@@ -1,10 +1,13 @@
-﻿@model IEnumerable<AsaTeb.WebFramework.Models.CandidateModel>
+﻿@model AsaTeb.WebFramework.Models.CatalogModel
 
-<h1>All Candidates</h1>
+<h1>Filter Candidates</h1>
+
+@await Html.PartialAsync("_Criteria", Model.CriteriaModel)
+<hr />
 
 <div class="container">
     <div class="row">
-        @foreach (var candidate in Model)
+        @foreach (var candidate in Model.CandidatesModel)
         {
             <div class="col-md-3">
             <div id="@candidate.CandidateId" class="card card-custom">

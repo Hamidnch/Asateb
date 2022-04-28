@@ -4,6 +4,7 @@ using AsaTeb.Application.Technologies.Dtos;
 using AsaTeb.WebFramework.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AsaTeb.Web.Controllers
 {
@@ -30,12 +31,115 @@ namespace AsaTeb.Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> GetAllCandidates()
+        //public async Task<IActionResult> GetAllCandidates()
+        //{
+            //var candidates = await _asaTebService.GetAllCandidatesAsync();
+            //var candidatesModel = 
+            //    candidates.Select(c => _mapper.Map<CandidateDto, CandidateModel>(c));
+
+            //var technologies = await _asaTebService.GetAllTechnologiesAsync();
+            //var technologyDtos = technologies as TechnologyDto[] ?? technologies.ToArray();
+            //var technologiesModel =
+            //    //technologyDtos.Select(t=> _mapper.Map<TechnologyDto, TechnologyModel>(t));
+            //    technologyDtos.Select(x => new SelectListItem
+            //    {
+            //        Value = x.Guid.ToString(),
+            //        Text = x.Name
+            //    }).ToList();
+
+            //var criteriaModel = new CriteriaModel
+            //{
+            //    Technologies = technologiesModel,
+            //    YearsOfExperiences = new List<SelectListItem>
+            //    {
+            //        new SelectListItem("1", "1"),
+            //        new SelectListItem("2", "2"),
+            //        new SelectListItem("3", "3"),
+            //        new SelectListItem("4", "4"),
+            //        new SelectListItem("5", "5"),
+            //        new SelectListItem("6", "6"),
+            //        new SelectListItem("7", "7"),
+            //        new SelectListItem("8", "8"),
+            //        new SelectListItem("9", "9"),
+            //        new SelectListItem("10", "10")
+            //    },
+            //    Operators = new List<SelectListItem>
+            //    {
+            //        new SelectListItem("=" , "0"),
+            //        new SelectListItem(">=", "1"),
+            //        new SelectListItem("<=", "2"),
+            //        new SelectListItem(">" , "3"),
+            //        new SelectListItem("<" , "4")
+            //    }
+            //};
+
+            //var model = new CatalogModel
+            //{
+            //    CandidatesModel = candidatesModel,
+            //    CriteriaModel = criteriaModel
+            //};
+
+           // return View(model);
+        //}
+
+        //[HttpPost]
+        public async Task<IActionResult> Filter(CriteriaModel criteriaModel)
         {
-            var candidates = await _asaTebService.GetAllCandidatesAsync();
-            var model = 
+            var candidateByDto = new CandidateByDto
+            {
+                OperatorId = criteriaModel.Operator,
+                TechnologyId = criteriaModel.TechnologyId,
+                YearsOfExperience = criteriaModel.Year
+            };
+
+            var candidates = await _asaTebService.FilterCandidatesAsync(candidateByDto: candidateByDto);
+            var candidatesModel =
                 candidates.Select(c => _mapper.Map<CandidateDto, CandidateModel>(c));
-            return View(model);
+
+            var technologies = await _asaTebService.GetAllTechnologiesAsync();
+            var technologyDtos = technologies as TechnologyDto[] ?? technologies.ToArray();
+            var technologiesModel =
+                //technologyDtos.Select(t=> _mapper.Map<TechnologyDto, TechnologyModel>(t));
+                technologyDtos.Select(x => new SelectListItem
+                {
+                    Value = x.Guid.ToString(),
+                    Text = x.Name
+                }).ToList();
+            criteriaModel.Year = candidateByDto.YearsOfExperience;
+            criteriaModel.Operator = candidateByDto.OperatorId;
+            criteriaModel.TechnologyId = candidateByDto.TechnologyId;
+
+            criteriaModel.Technologies = technologiesModel;
+            criteriaModel.Operators = new List<SelectListItem>
+            {
+                new SelectListItem("=", "0"),
+                new SelectListItem(">=", "1"),
+                new SelectListItem("<=", "2"),
+                new SelectListItem(">", "3"),
+                new SelectListItem("<", "4")
+            };
+            criteriaModel.YearsOfExperiences = new List<SelectListItem>
+            {
+                new SelectListItem("1", "1"),
+                new SelectListItem("2", "2"),
+                new SelectListItem("3", "3"),
+                new SelectListItem("4", "4"),
+                new SelectListItem("5", "5"),
+                new SelectListItem("6", "6"),
+                new SelectListItem("7", "7"),
+                new SelectListItem("8", "8"),
+                new SelectListItem("9", "9"),
+                new SelectListItem("10", "10")
+            };
+
+            var model = new CatalogModel
+            {
+                CandidatesModel = candidatesModel,
+                CriteriaModel = criteriaModel
+            };
+
+            return View("GetAllCandidates", model);
+
         }
     }
 }

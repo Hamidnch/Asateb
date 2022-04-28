@@ -8,5 +8,6 @@ namespace AsaTeb.Application.FacadePattern
         Task<IEnumerable<TechnologyDto>> GetAllTechnologiesAsync();
         Task<TechnologyDto> GetTechnologyByIdAsync(Guid id);
         Task<IEnumerable<CandidateDto>> GetAllCandidatesAsync();
+        Task<IEnumerable<CandidateDto>> FilterCandidatesAsync(CandidateByDto candidateByDto);
     }
 }
