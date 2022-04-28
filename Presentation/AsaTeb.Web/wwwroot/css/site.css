@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.card-custom {
+    height: 500px;
+    margin-bottom: 5px
+}

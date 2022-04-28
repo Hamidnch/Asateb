@@ -1,33 +1,39 @@
 ﻿@model IEnumerable<AsaTeb.WebFramework.Models.CandidateModel>
 
 <h1>All Candidates</h1>
-@{
-    foreach (var candidate in Model)
-    {
-        <img src="@candidate.ProfilePicture"/>
-        <ul>
-            <li>@candidate.CandidateId</li>
-            <li>@candidate.FirstName</li>
-            <li>@candidate.LastName</li>
-            <li>@candidate.Barcode</li>
-            <li>@candidate.CanSwim</li>
-            <li>@candidate.Dad</li>
-            <li>@candidate.Mom</li>
-            <li>@candidate.Email</li>
-            <li>@candidate.FavoriteMusicGenre</li>
-            <li>@candidate.Gender</li>
-        </ul>
-        <h5>Experiences of @candidate.FirstName</h5>
 
-        foreach (var experience in candidate.Experience)
+<div class="container">
+    <div class="row">
+        @foreach (var candidate in Model)
         {
-            <ul>
-                <li>Technology Id: @experience.TechnologyId</li>
-                <li>Technology name: @experience.TechnologyName</li>
-                <li>Years of experience: @experience.YearsOfExperience</li>
-            </ul>
-        }
+            <div class="col-md-3">
+            <div id="@candidate.CandidateId" class="card card-custom">
+                <div class="card-header text-center text-black-50">
+                    @candidate.FullName
+                </div>
+                <img src="@candidate.ProfilePicture" class="img-thumbnail rounded-circle" alt="@candidate.FullName">
+                <div class="card-body">
+                    <h6 class="card-title">@candidate.Email</h6>
 
-        
-    }
-}
+                    <p class="card-text">
+                        <select name="tech-select" class="tech-select form-select">
+                            <option class="placeholder-glow">Select ...</option>
+                            @foreach (var experience in candidate.Experience)
+                            {
+                                <option value="@(experience.TechnologyId)">
+                                    @experience.TechnologyName (@experience.YearsOfExperience years)
+                                </option>
+                            }
+                        </select>
+                    </p>
+                    <div class="col-md-12">
+                        <button id="btn-select" class="btn-select btn btn-info form-control">
+                            <i class="fa fa-check"></i> Select
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
