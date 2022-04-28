@@ -24,7 +24,7 @@ namespace AsaTeb.Persistence.Candidates
 
         public async Task<IEnumerable<Candidate>?> LoadAllCandidatesAsync()
         {
-            var candidates = await HttpClientManager.ResolveUrlAsync<CandidateDto>("api/candidates");
+            var candidates = await HttpClientManager.GetUrlAsync<IEnumerable<CandidateDto>>("api/candidates");
             var res = candidates?.Select(t => _mapper.Map<CandidateDto, Candidate>(t)).ToList();
             return res;
         }

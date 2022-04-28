@@ -49,7 +49,7 @@ namespace AsaTeb.Application.Candidates.Queries
                                         (_technologyRepository.GetTechnologyByIdAsync(e.TechnologyId)).Result?.Name,
                                     TechnologyId = e.TechnologyId,
                                     YearsOfExperience = e.YearsOfExperience
-                                }).ToList()
+                                })
                             })
                         .ToList();
 

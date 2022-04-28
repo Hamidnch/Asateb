@@ -11,7 +11,7 @@ namespace AsaTeb.Persistence.Technologies
         public async Task<IEnumerable<Technology>?> LoadAllTechnologiesAsync()
         {
             var technologies = 
-                await HttpClientManager.ResolveUrlAsync<TechnologyDto>("api/technologies");
+                await HttpClientManager.GetUrlAsync<IEnumerable<TechnologyDto>>("api/technologies");
             var res = technologies?.Select(t => new Technology(t.Guid,t.Name));
             return res;
         }
@@ -22,6 +22,9 @@ namespace AsaTeb.Persistence.Technologies
             var res = technologies?.FirstOrDefault(t => t.Id == id);
             return res;
 
+            //var technology =
+            //    await HttpClientManager.GetUrlAsync<Technology>($"api/technologies/{id}");
+            //return technology;
         }
     }
 }
