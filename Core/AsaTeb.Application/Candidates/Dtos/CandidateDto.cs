@@ -15,6 +15,6 @@ namespace AsaTeb.Application.Candidates.Dtos
         public string? Mom { get; set; }
         public bool CanSwim { get; set; }
         public string? Barcode { get; set; }
-        public IEnumerable<ExperienceDto> Experience { get; set; }
+        public IEnumerable<ExperienceDto>? Experience { get; set; }
     }
 }

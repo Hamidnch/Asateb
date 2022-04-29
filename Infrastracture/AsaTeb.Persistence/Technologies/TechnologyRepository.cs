@@ -12,7 +12,8 @@ namespace AsaTeb.Persistence.Technologies
             var technologies =
                 await HttpClientManager.GetUrlAsync<IEnumerable<TechnologyRest>>("api/technologies");
 
-            var res = technologies?.Select(t => new TechnologyDto { Guid = t.Guid, Name = t.Name });
+            var res = 
+                technologies?.Select(t => new TechnologyDto { Guid = t.Guid, Name = t.Name });
             return res;
         }
 

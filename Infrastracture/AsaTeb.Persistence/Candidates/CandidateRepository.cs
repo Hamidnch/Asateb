@@ -25,6 +25,29 @@ namespace AsaTeb.Persistence.Candidates
         {
             return await HttpClientManager.GetUrlAsync<IEnumerable<CandidateRest>>("api/candidates");
         }
+        private static IEnumerable<CandidateRest>? FilterByYearsOfExperience(CandidateByDto candidateByDto,
+            IEnumerable<CandidateRest>? candidatesRest)
+        {
+            if (candidateByDto.OperatorId >= 0)
+            {
+                candidatesRest = candidateByDto.OperatorId switch
+                {
+                    1 => candidatesRest?.Where(c =>
+                        c.Experience.Any(e => e.YearsOfExperience == candidateByDto.YearsOfExperience)),
+                    2 => candidatesRest?.Where(c =>
+                        c.Experience.Any(e => e.YearsOfExperience >= candidateByDto.YearsOfExperience)),
+                    3 => candidatesRest?.Where(c =>
+                        c.Experience.Any(e => e.YearsOfExperience <= candidateByDto.YearsOfExperience)),
+                    4 => candidatesRest?.Where(c =>
+                        c.Experience.Any(e => e.YearsOfExperience > candidateByDto.YearsOfExperience)),
+                    5 => candidatesRest?.Where(c =>
+                        c.Experience.Any(e => e.YearsOfExperience < candidateByDto.YearsOfExperience)),
+                    _ => candidatesRest
+                };
+            }
+
+            return candidatesRest;
+        }
 
         #endregion Private Methods
 
@@ -71,47 +94,32 @@ namespace AsaTeb.Persistence.Candidates
             var technologies = await GetAllTechnologies();
             var candidates = await GetAllCandidates();
 
-            var candidatesRest = candidates;
+            var query = candidates;
 
-            if (candidatesRest != null)
+            if (query != null)
             {
                 if (candidateByDto.TechnologyId != Guid.Parse("{00000000-0000-0000-0000-000000000000}"))
                 {
-                    candidatesRest = candidatesRest?.Where(c =>
+                    query = query.Where(c =>
                         c.Experience.Any(e => e.TechnologyId == candidateByDto.TechnologyId));
 
-                    if (candidateByDto.OperatorId >= 0)
-                    {
-                        candidatesRest = candidateByDto.OperatorId switch
-                        {
-                            0 => candidatesRest?.Where(c =>
-                                c.Experience.Any(e => e.YearsOfExperience == candidateByDto.YearsOfExperience)),
-                            1 => candidatesRest?.Where(c =>
-                                c.Experience.Any(e => e.YearsOfExperience >= candidateByDto.YearsOfExperience)),
-                            2 => candidatesRest?.Where(c =>
-                                c.Experience.Any(e => e.YearsOfExperience <= candidateByDto.YearsOfExperience)),
-                            3 => candidatesRest?.Where(c =>
-                                c.Experience.Any(e => e.YearsOfExperience > candidateByDto.YearsOfExperience)),
-                            4 => candidatesRest?.Where(c =>
-                                c.Experience.Any(e => e.YearsOfExperience < candidateByDto.YearsOfExperience)),
-                            _ => candidatesRest
-                        };
-                    }
+                    query = FilterByYearsOfExperience(candidateByDto, query);
                 }
             }
             
-            candidatesRest = candidatesRest?.ToList();
+            query = query?.ToList();
             var technologiesRest = technologies?.ToList();
 
-            if (candidatesRest == null)
-                return candidatesRest?.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
-            
-            foreach (var c in candidatesRest)
+            if (query == null)
+                return new List<CandidateDto>();
+
+            if (technologiesRest == null)
+                return query.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
+        
+            foreach (var c in query)
             {
                 foreach (var e in c.Experience)
                 {
-                    if (technologiesRest == null) continue;
-
                     foreach (var t in technologiesRest.Where(t => e.TechnologyId == t.Guid))
                     {
                         e.TechnologyName = t.Name;
@@ -119,10 +127,7 @@ namespace AsaTeb.Persistence.Candidates
                 }
             }
 
-            var res =
-                candidatesRest?.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
-
-            return res;
+            return query.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
         }
 
         public async Task<IEnumerable<ExperienceDto>> GetExperiencesByCandidateIdAsync(Guid candidateId)

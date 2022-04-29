@@ -1,6 +1,5 @@
 ﻿using AsaTeb.Application.Technologies.Dtos;
 using AsaTeb.Application.Technologies.Repositories;
-using AsaTeb.Domain.Technologies;
 using AutoMapper;
 using MediatR;
 
@@ -23,14 +22,12 @@ namespace AsaTeb.Application.Technologies.Queries
             {
                 var technologies = await _technologyRepository.LoadAllTechnologiesAsync();
 
-                if (technologies == null) return new List<TechnologyDto>();
+                return technologies ?? new List<TechnologyDto>();
 
                 //var technologiesDto =
                 //    technologies.Select(t => _mapper.Map<Technology, TechnologyDto>(t)).ToList();
 
                 //return technologiesDto;
-
-                return technologies;
             }
         }
     }

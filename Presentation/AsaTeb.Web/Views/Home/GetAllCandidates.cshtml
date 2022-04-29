@@ -4,7 +4,7 @@
 
 @await Html.PartialAsync("_Criteria", Model.CriteriaModel)
 <hr />
-
+<div class="my-choice card"></div>
 <div class="container">
     <div class="row">
         @foreach (var candidate in Model.CandidatesModel)
@@ -14,26 +14,25 @@
                 <div class="card-header text-center text-black-50">
                     @candidate.FullName
                 </div>
-                <img src="@candidate.ProfilePicture" class="img-thumbnail rounded-circle" alt="@candidate.FullName">
+                <img src="@candidate.ProfilePicture" 
+                     class="img-thumbnail rounded-circle image-custom" alt="@candidate.FullName">
                 <div class="card-body">
                     <h6 class="card-title">@candidate.Email</h6>
 
                     <p class="card-text">
-                        <select name="tech-select" class="tech-select form-select">
-                            <option class="placeholder-glow">Select ...</option>
+                        <h6>Experiences: </h6>
+                        <ul>
                             @foreach (var experience in candidate.Experience)
                             {
-                                <option value="@(experience.TechnologyId)">
-                                    @experience.TechnologyName (@experience.YearsOfExperience years)
-                                </option>
-                            }
-                        </select>
+                                <li>@experience.TechnologyName (@experience.YearsOfExperience years)</li>
+                            } 
+                        </ul>
                     </p>
-                    <div class="col-md-12">
-                        <button id="btn-select" class="btn-select btn btn-info form-control">
-                            <i class="fa fa-check"></i> Select
-                        </button>
-                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn-select btn btn-info form-control">
+                        <i class="fa fa-check"></i> Select
+                    </button>
                 </div>
             </div>
         </div>

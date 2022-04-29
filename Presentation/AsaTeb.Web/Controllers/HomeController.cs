@@ -30,59 +30,7 @@ namespace AsaTeb.Web.Controllers
                 technologies.Select(t => _mapper.Map<TechnologyDto, TechnologyModel>(t));
             return View(model);
         }
-
-        //public async Task<IActionResult> GetAllCandidates()
-        //{
-            //var candidates = await _asaTebService.GetAllCandidatesAsync();
-            //var candidatesModel = 
-            //    candidates.Select(c => _mapper.Map<CandidateDto, CandidateModel>(c));
-
-            //var technologies = await _asaTebService.GetAllTechnologiesAsync();
-            //var technologyDtos = technologies as TechnologyDto[] ?? technologies.ToArray();
-            //var technologiesModel =
-            //    //technologyDtos.Select(t=> _mapper.Map<TechnologyDto, TechnologyModel>(t));
-            //    technologyDtos.Select(x => new SelectListItem
-            //    {
-            //        Value = x.Guid.ToString(),
-            //        Text = x.Name
-            //    }).ToList();
-
-            //var criteriaModel = new CriteriaModel
-            //{
-            //    Technologies = technologiesModel,
-            //    YearsOfExperiences = new List<SelectListItem>
-            //    {
-            //        new SelectListItem("1", "1"),
-            //        new SelectListItem("2", "2"),
-            //        new SelectListItem("3", "3"),
-            //        new SelectListItem("4", "4"),
-            //        new SelectListItem("5", "5"),
-            //        new SelectListItem("6", "6"),
-            //        new SelectListItem("7", "7"),
-            //        new SelectListItem("8", "8"),
-            //        new SelectListItem("9", "9"),
-            //        new SelectListItem("10", "10")
-            //    },
-            //    Operators = new List<SelectListItem>
-            //    {
-            //        new SelectListItem("=" , "0"),
-            //        new SelectListItem(">=", "1"),
-            //        new SelectListItem("<=", "2"),
-            //        new SelectListItem(">" , "3"),
-            //        new SelectListItem("<" , "4")
-            //    }
-            //};
-
-            //var model = new CatalogModel
-            //{
-            //    CandidatesModel = candidatesModel,
-            //    CriteriaModel = criteriaModel
-            //};
-
-           // return View(model);
-        //}
-
-        //[HttpPost]
+        
         public async Task<IActionResult> Filter(CriteriaModel criteriaModel)
         {
             var candidateByDto = new CandidateByDto
@@ -92,44 +40,46 @@ namespace AsaTeb.Web.Controllers
                 YearsOfExperience = criteriaModel.Year
             };
 
-            var candidates = await _asaTebService.FilterCandidatesAsync(candidateByDto: candidateByDto);
+            var candidates = 
+                await _asaTebService.FilterCandidatesAsync(candidateByDto: candidateByDto);
+            
             var candidatesModel =
                 candidates.Select(c => _mapper.Map<CandidateDto, CandidateModel>(c));
 
             var technologies = await _asaTebService.GetAllTechnologiesAsync();
-            var technologyDtos = technologies as TechnologyDto[] ?? technologies.ToArray();
+            
             var technologiesModel =
-                //technologyDtos.Select(t=> _mapper.Map<TechnologyDto, TechnologyModel>(t));
-                technologyDtos.Select(x => new SelectListItem
+                technologies.Select(x => new SelectListItem
                 {
                     Value = x.Guid.ToString(),
-                    Text = x.Name
-                }).ToList();
-            criteriaModel.Year = candidateByDto.YearsOfExperience;
-            criteriaModel.Operator = candidateByDto.OperatorId;
-            criteriaModel.TechnologyId = candidateByDto.TechnologyId;
+                    Text = x.Name,
+                    Selected = candidateByDto.TechnologyId == x.Guid
+                })
+                    .ToList();
 
             criteriaModel.Technologies = technologiesModel;
+
             criteriaModel.Operators = new List<SelectListItem>
             {
-                new SelectListItem("=", "0"),
-                new SelectListItem(">=", "1"),
-                new SelectListItem("<=", "2"),
-                new SelectListItem(">", "3"),
-                new SelectListItem("<", "4")
+                new(text: "=", value: "0", selected: candidateByDto.OperatorId == 1),
+                new(text: ">=",value: "1", selected: candidateByDto.OperatorId == 2),
+                new(text: "<=",value: "2", selected: candidateByDto.OperatorId == 3),
+                new(text: ">", value: "3", selected: candidateByDto.OperatorId == 4),
+                new(text: "<", value: "4", selected: candidateByDto.OperatorId == 5)
             };
+
             criteriaModel.YearsOfExperiences = new List<SelectListItem>
             {
-                new SelectListItem("1", "1"),
-                new SelectListItem("2", "2"),
-                new SelectListItem("3", "3"),
-                new SelectListItem("4", "4"),
-                new SelectListItem("5", "5"),
-                new SelectListItem("6", "6"),
-                new SelectListItem("7", "7"),
-                new SelectListItem("8", "8"),
-                new SelectListItem("9", "9"),
-                new SelectListItem("10", "10")
+                new(text: "1",value: "1", selected: candidateByDto.YearsOfExperience == 1),
+                new(text: "2",value: "2", selected: candidateByDto.YearsOfExperience == 2),
+                new(text: "3",value: "3", selected: candidateByDto.YearsOfExperience == 3),
+                new(text: "4",value: "4", selected: candidateByDto.YearsOfExperience == 4),
+                new(text: "5",value: "5", selected: candidateByDto.YearsOfExperience == 5),
+                new(text: "6",value: "6", selected: candidateByDto.YearsOfExperience == 6),
+                new(text: "7",value: "7", selected: candidateByDto.YearsOfExperience == 7),
+                new(text: "8",value: "8", selected: candidateByDto.YearsOfExperience == 8),
+                new(text: "9",value: "9", selected: candidateByDto.YearsOfExperience == 9),
+                new(text: "10", "10")
             };
 
             var model = new CatalogModel
@@ -139,7 +89,6 @@ namespace AsaTeb.Web.Controllers
             };
 
             return View("GetAllCandidates", model);
-
         }
     }
 }

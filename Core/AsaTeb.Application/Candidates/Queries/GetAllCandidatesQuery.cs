@@ -1,7 +1,5 @@
 ﻿using AsaTeb.Application.Candidates.Dtos;
 using AsaTeb.Application.Candidates.Repositories;
-using AsaTeb.Application.Technologies.Repositories;
-using AutoMapper;
 using MediatR;
 
 namespace AsaTeb.Application.Candidates.Queries
@@ -11,15 +9,16 @@ namespace AsaTeb.Application.Candidates.Queries
         public record GetAllCandidatesQueryHandler : IRequestHandler<GetAllCandidatesQuery, IEnumerable<CandidateDto>>
         {
             private readonly ICandidateRepository _candidateRepository;
-            private readonly ITechnologyRepository _technologyRepository;
-            private readonly IMapper _mapper;
+            //private readonly ITechnologyRepository _technologyRepository;
+            //private readonly IMapper _mapper;
 
-            public GetAllCandidatesQueryHandler(ICandidateRepository candidateRepository, 
-                IMapper mapper, ITechnologyRepository technologyRepository)
+            public GetAllCandidatesQueryHandler(ICandidateRepository candidateRepository
+                //,IMapper mapper, ITechnologyRepository technologyRepository
+                )
             {
                 _candidateRepository = candidateRepository;
-                _mapper = mapper;
-                _technologyRepository = technologyRepository;
+                //_mapper = mapper;
+                //_technologyRepository = technologyRepository;
             }
 
             public async Task<IEnumerable<CandidateDto>> Handle(GetAllCandidatesQuery request, CancellationToken cancellationToken)

@@ -1,5 +1,4 @@
 ﻿using AsaTeb.Application.Candidates.Dtos;
-using AsaTeb.Domain.Candidates;
 
 namespace AsaTeb.Application.Candidates.Repositories;
 

@@ -2,8 +2,8 @@
 {
     public class CandidateByDto
     {
-        public Guid TechnologyId { get; set; }
-        public int YearsOfExperience { get; set; }
-        public int OperatorId { get; set; }
+        public Guid TechnologyId { get; init; }
+        public int YearsOfExperience { get; init; }
+        public int OperatorId { get; init; }
     }
 }

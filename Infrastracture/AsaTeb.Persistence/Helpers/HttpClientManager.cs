@@ -8,22 +8,6 @@ namespace AsaTeb.Persistence.Helpers
     {
         private const string BaseUrl = "https://app.ifs.aero/EternalBlue/";
 
-        //public static async Task<IEnumerable<T>?> ResolveUrlAsync<T>(string url)
-        //{
-        //    using var client = new HttpClient();
-        //    client.BaseAddress = new Uri(BaseUrl);
-        //    client.DefaultRequestHeaders.Clear();
-        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //    var res = await client.GetAsync(url);
-
-        //    res.EnsureSuccessStatusCode();
-
-        //    var response = await res.Content.ReadAsStringAsync();
-        //    var entities = JsonConvert.DeserializeObject<IEnumerable<T>>(response);
-            
-        //    return entities;
-        //}
-
         public static async Task<T?> GetUrlAsync<T>(string url)
         {
             using var client = new HttpClient();

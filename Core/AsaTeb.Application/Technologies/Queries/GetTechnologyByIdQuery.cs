@@ -1,6 +1,5 @@
 ﻿using AsaTeb.Application.Technologies.Dtos;
 using AsaTeb.Application.Technologies.Repositories;
-using AsaTeb.Domain.Technologies;
 using AutoMapper;
 using MediatR;
 
@@ -21,11 +20,9 @@ namespace AsaTeb.Application.Technologies.Queries
             public async Task<TechnologyDto> Handle(GetTechnologyByIdQuery request, CancellationToken cancellationToken)
             {
                 var res = await _technologyRepository.GetTechnologyByIdAsync(request.Id);
-                if (res == null) return new TechnologyDto();
+                return res ?? new TechnologyDto();
                 //var technologyDto = _mapper.Map<Technology, TechnologyDto>(res);
                 //return technologyDto;
-
-                return res;
             }
         }
     }

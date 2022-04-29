@@ -22,7 +22,9 @@
             </div>
             <div class="col-md-3">
                 <label for="Year">Years of experience</label>
-                <select id="Year" name="Year" class="form-select" asp-items="@Model.YearsOfExperiences"></select>
+                <select id="Year" name="Year" class="form-select" asp-items="@Model.YearsOfExperiences">
+                    <option value="-1">Select ...</option>
+                </select>
             </div>
             <div class="col-md-3">
                 <label></label>

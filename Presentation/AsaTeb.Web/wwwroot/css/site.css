@@ -21,3 +21,23 @@ body {
     height: 500px;
     margin-bottom: 5px
 }
+.image-custom {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+.btn-select {
+
+}
+.my-choice {
+    left: 30%;
+    display: none;
+    position: fixed;
+    top: 10px;
+    z-index: 999;
+    background-color: bisque;
+}
+.choice-link {
+    border: solid 2px red;
+    font-weight: bolder;
+}

@@ -1,6 +1,4 @@
-﻿using AsaTeb.Domain.Technologies;
-
-namespace AsaTeb.Domain.Candidates
+﻿namespace AsaTeb.Domain.Candidates
 {
     public class Experience
     {
