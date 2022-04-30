@@ -61,11 +61,11 @@ namespace AsaTeb.Web.Controllers
 
             criteriaModel.Operators = new List<SelectListItem>
             {
-                new(text: "=", value: "0", selected: candidateByDto.OperatorId == 1),
-                new(text: ">=",value: "1", selected: candidateByDto.OperatorId == 2),
-                new(text: "<=",value: "2", selected: candidateByDto.OperatorId == 3),
-                new(text: ">", value: "3", selected: candidateByDto.OperatorId == 4),
-                new(text: "<", value: "4", selected: candidateByDto.OperatorId == 5)
+                new(text: "=", value: "1", selected: candidateByDto.OperatorId == 1),
+                new(text: ">=",value: "2", selected: candidateByDto.OperatorId == 2),
+                new(text: "<=",value: "3", selected: candidateByDto.OperatorId == 3),
+                new(text: ">", value: "4", selected: candidateByDto.OperatorId == 4),
+                new(text: "<", value: "5", selected: candidateByDto.OperatorId == 5)
             };
 
             criteriaModel.YearsOfExperiences = new List<SelectListItem>

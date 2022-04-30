@@ -127,7 +127,8 @@ namespace AsaTeb.Persistence.Candidates
                 }
             }
 
-            return query.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
+            var res = query.Select(t => _mapper.Map<CandidateRest, CandidateDto>(t)).ToList();
+            return res;
         }
 
         public async Task<IEnumerable<ExperienceDto>> GetExperiencesByCandidateIdAsync(Guid candidateId)

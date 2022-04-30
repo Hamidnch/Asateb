@@ -22,17 +22,17 @@ namespace AsaTeb.Persistence.Candidates
             Experience = new List<ExperienceRest>();
         }
 
-        private Guid CandidateId { get; set; }
-        private string? FirstName { get; set; }
-        private string? LastName { get; set; }
-        private GenderType Gender { get; set; }
-        private string? ProfilePicture { get; set; }
-        private string? Email { get; set; }
-        private string? FavoriteMusicGenre { get; set; }
-        private string? Dad { get; set; }
-        private string? Mom { get; set; }
-        private bool CanSwim { get; set; }
-        private string? Barcode { get; set; }
+        public Guid CandidateId { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public GenderType Gender { get; set; }
+        public string? ProfilePicture { get; set; }
+        public string? Email { get; set; }
+        public string? FavoriteMusicGenre { get; set; }
+        public string? Dad { get; set; }
+        public string? Mom { get; set; }
+        public bool CanSwim { get; set; }
+        public string? Barcode { get; set; }
         public IEnumerable<ExperienceRest> Experience { get; set; }
     }
 }
