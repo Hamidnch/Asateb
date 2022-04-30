@@ -33,15 +33,15 @@ namespace AsaTeb.Persistence.Candidates
                 candidatesRest = candidateByDto.OperatorId switch
                 {
                     1 => candidatesRest?.Where(c =>
-                        c.Experience.Any(e => e.YearsOfExperience == candidateByDto.YearsOfExperience)),
+                        c.Experience.All(e => e.YearsOfExperience == candidateByDto.YearsOfExperience)),
                     2 => candidatesRest?.Where(c =>
-                        c.Experience.Any(e => e.YearsOfExperience >= candidateByDto.YearsOfExperience)),
+                        c.Experience.All(e => e.YearsOfExperience >= candidateByDto.YearsOfExperience)),
                     3 => candidatesRest?.Where(c =>
-                        c.Experience.Any(e => e.YearsOfExperience <= candidateByDto.YearsOfExperience)),
+                        c.Experience.All(e => e.YearsOfExperience <= candidateByDto.YearsOfExperience)),
                     4 => candidatesRest?.Where(c =>
-                        c.Experience.Any(e => e.YearsOfExperience > candidateByDto.YearsOfExperience)),
+                        c.Experience.All(e => e.YearsOfExperience > candidateByDto.YearsOfExperience)),
                     5 => candidatesRest?.Where(c =>
-                        c.Experience.Any(e => e.YearsOfExperience < candidateByDto.YearsOfExperience)),
+                        c.Experience.All(e => e.YearsOfExperience < candidateByDto.YearsOfExperience)),
                     _ => candidatesRest
                 };
             }
